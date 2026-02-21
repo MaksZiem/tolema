@@ -10,7 +10,7 @@ export default function Navbar() {
   
   const navTextColor = useTransform(
     scrollY,
-    [1000, 1100, 2600, 3300], 
+    [950, 1000, 2600, 3300], 
     ["#ffffff", "#000000", "#000000", "#ffffff"] 
   )
 
@@ -37,11 +37,9 @@ export default function Navbar() {
       <Link to="/">
         <motion.div
           style={{ color: navTextColor }}
-          className={`font-bold transition-none ${
-            isShrunk ? 'text-2xl' : 'text-2xl'
-          }`}
+          className='font-bold transition-none text-3xl'
         >
-          Workout Tracker
+          TOLEMA wyceny
         </motion.div>
       </Link>
 
@@ -76,7 +74,7 @@ export default function Navbar() {
       </div>
 
       <ul
-        className={`flex flex-col md:flex-row md:items-center absolute md:static top-full left-0 w-full md:w-auto transition-all duration-300 ease-in ${
+        className={`flex flex-col md:flex-row md:items-center absolute md:static top-full left-0 w-full text-2xl md:w-auto transition-all duration-300 ease-in ${
           isOpen ? 'block backdrop-blur-sm bg-white/50' : 'hidden md:flex'
         }`}
       >
@@ -85,8 +83,8 @@ export default function Navbar() {
           className="py-2 px-4 hover:text-black cursor-pointer relative group"
         >
           <Link to="/auth" className="block">
-            Logowanie / Rejestracja
-            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
+            O nas
+            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
           </Link>
         </motion.li>
         <motion.li 
@@ -95,25 +93,7 @@ export default function Navbar() {
         >
           <Link to="/offer" className="block">
             Oferta
-            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
-          </Link>
-        </motion.li>
-        <motion.li 
-          style={{ color: isOpen ? "#000000" : navTextColor }}
-          className="py-2 px-4 hover:text-black cursor-pointer relative group"
-        >
-          <Link to="/trainers" className="block">
-            Trenerzy
-            <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
-          </Link>
-        </motion.li>
-        <motion.li 
-          style={{ color: isOpen ? "#000000" : navTextColor }}
-          className="py-2 px-4 hover:text-black cursor-pointer relative group"
-        >
-          <Link to="/booking" className="block">
-            Zapisz się na trening
-            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
+            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
           </Link>
         </motion.li>
         <motion.li 
@@ -122,7 +102,7 @@ export default function Navbar() {
         >
           <Link to="/contact" className="block">
             Kontakt
-            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
+            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
           </Link>
         </motion.li>
       </ul>
