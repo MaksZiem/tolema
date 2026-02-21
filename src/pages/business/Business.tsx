@@ -5,7 +5,7 @@ interface Props {
   y: MotionValue<number>;
 }
 
-export default function WycenaBiznesu({ y }: Props) {
+export default function Business({ y }: Props) {
   return (
     <motion.div
       style={{ y }}
