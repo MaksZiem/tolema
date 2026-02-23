@@ -1,13 +1,44 @@
 import { motion } from 'framer-motion'
 
-const SectionArrow = () => {
-
-  const scrollToNextSection = () => {
-    window.scrollTo({
-      top: window.innerHeight,
-      behavior: "smooth",
-    });
+const SectionArrow = ({ label = "SCROLL", targetSection, color = "white" }: { label?: string; targetSection?: string; color?: string }) => {
+  const scrollToSection = () => {
+    if (targetSection) {
+      const element = document.getElementById(targetSection);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    } else {
+      // Fallback - scroll to next viewport height
+      window.scrollTo({
+        top: window.innerHeight,
+        behavior: "smooth",
+      });
+    }
   };
+
+  // Niestandardowa strzałka SVG
+  const CustomArrowDown = ({ size = 44, className = "", style }: { size?: number; className?: string; style?: React.CSSProperties }) => (
+    <svg 
+      width={size} 
+      height={size} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      className={className}
+      style={style}
+    >
+      <path 
+        d="M7 10L12 15L17 10" 
+        stroke="currentColor" 
+        strokeWidth="2" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+
   return (
     <>
      {/* Animowana strzałka */}
@@ -16,12 +47,12 @@ const SectionArrow = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0, duration: 0.8, ease: "easeOut" }}
-          onClick={scrollToNextSection}
+          onClick={scrollToSection}
         >
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{
-              duration: 0,
+              duration: 2,
               repeat: Infinity,
               ease: "easeInOut",
             }}
@@ -32,12 +63,16 @@ const SectionArrow = () => {
               className="absolute inset-0 flex items-center justify-center"
               animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
               transition={{
-                duration: 0,
+                duration: 2,
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
             >
-    
+              <CustomArrowDown
+                size={48}
+                className={`blur-sm opacity-60`}
+                style={{ color }}
+              />
             </motion.div>
 
             {/* Główna ikona strzałki */}
@@ -46,21 +81,17 @@ const SectionArrow = () => {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0, duration: 0.5, ease: "easeOut" }}
             >
-        
+              <CustomArrowDown
+                size={44}
+                className="relative z-10"
+                style={{ color }}
+              />
             </motion.div>
 
             {/* Glow efekt */}
-            {/* <motion.div
-              className="absolute inset-0 bg-white rounded-full opacity-10 blur-lg w-16 h-16 flex items-center justify-center"
-              animate={{ scale: [1, 1.4, 1], opacity: [0.1, 0.25, 0.1] }}
-              transition={{ 
-                duration: 0, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-            /> */}
             <motion.div
-              className="absolute inset-0 bg-white rounded-full opacity-30 blur-2xl w-24 h-24 flex items-center justify-center"
+              className="absolute inset-0 rounded-full opacity-30 blur-2xl w-24 h-24 flex items-center justify-center"
+              style={{ backgroundColor: color }}
               animate={{ scale: [1, 1.5, 1], opacity: [0.3, 0.5, 0.3] }}
               transition={{
                 duration: 2,
@@ -72,12 +103,13 @@ const SectionArrow = () => {
 
           {/* Tekst pod strzałką */}
           <motion.p
-            className="text-white text-l font-normal mt-3 text-center opacity-70 font-light tracking-widest"
+            className="text-l font-normal mt-3 text-center opacity-70 font-light tracking-widest"
+            style={{ color }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0, duration: 0.6 }}
           >
-            OFERTA
+            {label}
           </motion.p>
         </motion.div>
     </>

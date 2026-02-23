@@ -1,24 +1,64 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import Footer from "../../components/content/Footer";
-import Navbar from "../../components/navigation/navbar";
+import Navbar from "../../components/navigation/Navbar";
 import SectionArrow from "../../components/navigation/SectionArrow";
-import { memberships } from "../../models/Membership";
-
+import Business from "../business/Business";
+import Property from "../offer/Property";
+import TechnicalMeasures from "../technicalMeasures/TechnicalMeasures";
+import RandomNumberAnimation from "../../components/content/RandomNumberAnimation";
 
 function Home() {
   const { scrollY } = useScroll();
 
-  const yGreen = useTransform(scrollY, [0, 500], [0, 0]);
-
-  // Animation for membership section
-  const membershipY = useTransform(scrollY, [400, 800], [100, 0]);
-  const membershipOpacity = useTransform(scrollY, [400, 800], [0, 1]);
-  const membershipBlur = useTransform(scrollY, [400, 800], [10, 0]);
-
-
   const y1 = useTransform(scrollY, [1000, 1500], [0, 0]);
   const y2 = useTransform(scrollY, [1500, 2000], [0, 0]);
   const y3 = useTransform(scrollY, [2000, 2500], [0, 0]);
+
+  // Parallax effect for city background - subtle movement
+  const cityParallax = useTransform(scrollY, [0, 2000], [0, -200]);
+
+  const qualifications = [
+    "Do szacowania nieruchomości, nr 6031 (Minister Infrastruktury i Rozwoju)",
+    "Szacowania nieruchomości komercyjnych, nr 23496 (CCIM Institute Chicago)",
+    "Do pośrednictwa w obrocie nieruchomościami, nr 17576 (Minister Transportu, Budownictwa i Gospodarki Morskiej)",
+    "Do zarządzania nieruchomościami, nr 23783 (Minister Transportu, Budownictwa i Gospodarki Morskiej)",
+    "Do sporządzania wycen dla potrzeb zabezpieczenia wierzytelności bankowych, nr 418",
+    "Do sporządzania wyceny dla potrzeb zabezpieczenia wierzytelności, nr 10/2018",
+    "Do szacowania ruchomości, maszyn, urządzeń i środków technicznych",
+  ];
+
+  const tiles = [
+    {
+      text: "Indywidualne podejście do każdej sprawy",
+      bg: "bg-[#D4B876]",
+      delay: 0.1,
+    },
+    { text: "Przejrzyste koszty od początku", bg: "bg-[#D4B876]", delay: 0.2 },
+    { text: "Najlepsze ceny", bg: "bg-[#BFA36F]", delay: 0.3 },
+    {
+      text: "Doświadczenie w sprawach dużych i małych",
+      bg: "bg-[#C5A46A]",
+      delay: 0.4,
+    },
+    {
+      text: "Rzetelność i uczciwość w działaniu",
+      bg: "bg-[#D4B876]",
+      delay: 0.5,
+    },
+    {
+      text: "Wieloletnie doświadczenie poparte efektami",
+      bg: "bg-[#BFA36F]",
+      delay: 0.6,
+    },
+    {
+      text: "Spokój i pewność, że wszystko jest pod kontrolą",
+      bg: "bg-[#C5A46A]",
+      delay: 0.7,
+    },
+    { text: "Proste, zrozumiałe procedury", bg: "bg-[#D4B876]", delay: 0.8 },
+  ];
+
+  const tilePositions = [1, 3, 4, 6, 9, 11, 12, 14];
 
   return (
     <div className="font-sans relative z-0">
@@ -29,37 +69,98 @@ function Home() {
           muted
           loop
           playsInline
-          className="fixed top-0 left-0 w-full h-full object-cover -z-10"
+          className="fixed top-0 left-0 w-full h-full object-cover -z-10 brightness-50"
         >
-          <source src="/background.mp4" type="video/mp4" />
+          <source src="/temida.mp4" type="video/mp4" />
         </video>
 
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 2 }}
-          className="relative z-10 flex items-center justify-center h-auto pt-120 text-7xl font-bold"
+          className="relative z-10 flex pt-70 pl-320 text-7xl font-normal"
         >
           <div className="relative pb-4">
-            <span className="text-black text-center">
-              Stwórz lepszą wersję siebie
-            </span>
+            <span className="text-black text-center">Wiedza i praktyka</span>
             <motion.span
               initial={{ clipPath: "polygon(0 0, 0% 0, 0% 100%, 0 100%)" }}
               animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
               transition={{ duration: 2, ease: "easeInOut", delay: 0.5 }}
               className="absolute top-0 left-0 text-white pb-4 text-center"
             >
-              Stwórz lepszą wersję siebie
+              Wiedza i praktyka
             </motion.span>
           </div>
         </motion.div>
-        <div className="absolute bottom-10 right-5 transform flex w-40 h-20 opacity-50 bg-white items-center justify-center box-shadow-md rounded-xl gap-5">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+          className="relative z-10 flex pl-280 h-20 pt-5 text-6xl font-bold"
+        >
+          <div className="relative pb-4">
+            <span className="text-black text-center">Najwyższe standardy</span>
+            <motion.span
+              initial={{ clipPath: "polygon(0 0, 0% 0, 0% 100%, 0 100%)" }}
+              animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
+              transition={{ duration: 2, ease: "easeInOut", delay: 0.5 }}
+              className="absolute top-0 left-0 text-white pb-4 text-center"
+            >
+              Najwyższe standardy
+            </motion.span>
+          </div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+          className="relative z-10 flex pl-280 h-20 pt-10 text-6xl font-extralight"
+        >
+          <div className="relative pb-4">
+            <span className="text-black text-center">Zaangażowanie</span>
+            <motion.span
+              initial={{ clipPath: "polygon(0 0, 0% 0, 0% 100%, 0 100%)" }}
+              animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
+              transition={{ duration: 2, ease: "easeInOut", delay: 0.5 }}
+              className="absolute top-0 left-0 text-white pb-4 text-center"
+            >
+              Zaangażowanie
+            </motion.span>
+          </div>
+        </motion.div>
+        <div className="flex justify-center mt-50">
+          <div className="flex justify-between p-8 w-[90%] border-t border-b border-white">
+            <div className="w-[400px] text-l font-thin ">
+              Sprawy majątkowe i prawne wymagają spokoju, doświadczenia i
+              precyzyjnych rozwiązań — my dostarczamy to, co najważniejsze:
+              pewność, bezpieczeństwo i przejrzyste zasady współpracy.
+            </div>
+            <div className="flex justify-start flex-col">
+              <div className="text-l text-center">na rynkiu od</div>
+              <div className="text-4xl text-center font-extralight">
+                [ <RandomNumberAnimation value={2017}/> ]
+              </div>
+            </div>
+            <div className="flex justify-center flex-col font-thin text-2xl">
+              <div>[ <RandomNumberAnimation value={new Date().getFullYear() - 2017}/> ] lat doświadczenia</div>
+            </div>
+            <div className="flex justify-end flex-col">
+              <div className="text-4xl text-center font-extralight">
+                [ +<RandomNumberAnimation value={230}/> ]
+              </div>
+              <div className="text-l">ukończonych wycen</div>{" "}
+            </div>
+            <div className="text-4xl flex justify-center flex-col">
+              po prostu TOLEMA.
+            </div>
+          </div>
+        </div>
+        <div className="absolute bottom-10 right-5 transform flex w-30 h-15 opacity-50 bg-white items-center justify-center box-shadow-md rounded-xl gap-5">
           <img
             src="/instagram.png"
             alt="instagram"
-            title="instgram"                        
-            className="h-2/3 cursor-pointer " 
+            title="instgram"
+            className="h-2/3 cursor-pointer "
           />
           <img
             src="/facebook.png"
@@ -67,262 +168,130 @@ function Home() {
             className="h-2/3 cursor-pointer"
           />
         </div>
-        <SectionArrow />
+        <SectionArrow label="O MNIE" targetSection="o mnie" />
       </section>
 
-      <div className="relative h-[160vh] bg-white z-10">
-        <motion.div
-          style={{ y: yGreen }}
-          className="sticky top-0 h-screen flex-col justify-center bg-white text-5xl"
-        >
-          <div className="flex py-15 justify-center items-center">Oferta</div>
-          <motion.div
-            style={{ 
-              y: membershipY,
-              opacity: membershipOpacity,
-              filter: `blur(${membershipBlur}px)`
-            }}
-          >
-            <h3 className="text-4xl text-center">
-              Trenuj tak, jak lubisz – bez ograniczeń!
-            </h3>
-            <div className="flex justify-center mt-10">
-              <div className="text-2xl w-1/2 text-center">
-                Wybierz karnet dopasowany do Twojego stylu życia. Niezależnie od
-                tego, czy jesteś rannym ptaszkiem, ćwiczysz tylko w weekendy,
-                czy szukasz pełnej opieki trenerskiej – mamy coś dla Ciebie.
-                Dołącz do naszej społeczności i zacznij działać już dziś!
-              </div>
+      <section className="bg-white h-screen w-screen flex flex-row" id="o mnie">
+        <div className="flex justify-between flex-col items-center w-1/2 bg-gradient-to-r from-gray-200 via-gray-100  to-[#e8e6e6] text-white font-bold text-lg px-20 py-3">
+          <div className="text-5xl font-light h-20 mt-10 flex items-center text-black">
+            O mnie
+          </div>
+
+          <div className="border-t border-b border-black py-5 border-solid">
+            <div className="font-bold text-2xl  text-justify text-black font-normal indent-8">
+              Należę do Warszawskiego Stowarzyszenia Rzeczoznawców Majątkowych
+              zrzeszonego w Polskiej Federacji Stowarzyszeń Rzeczoznawców
+              Majątkowych
             </div>
-          </motion.div>
-          <motion.div 
-            className="flex justify-center mt-15"
-            style={{ 
-              y: membershipY,
-              opacity: membershipOpacity, 
-              filter: `blur(${membershipBlur}px)`
-            }}
-          >
-            <div className="flex w-4/5 overflow-x-auto gap-8 scrollbar-hide snap-x snap-mandatory pb-6">
-              {memberships.map((item) => (
-                <div
-                  key={item.name}
-                  className="min-w-[400px] h-[600px] bg-gray-100 flex rounded-2xl shadow-lg p-6 text-center flex-col justify-between"
+            <div className="font-normal text-justify text-xl text-black indent-8">
+              Jestem absolwentem Wydziału Wiertnictwa Nafty i Gazu (specjalność
+              gazownictwo ziemne) oraz Wydziału Górnictwa i Geoinżynierii
+              (specjalność zarządzanie i marketing) Akademii Górniczo-Hutniczej
+              w Krakowie. Ukończyłem studia MBA na Akademii Leona Koźmińskiego w
+              Warszawie. Posiadam certyfikaty „Wycena dla potrzeb zabezpieczenia
+              wierzytelności bankowych” (Związek Banków Polskich) oraz „Wycena
+              dla potrzeb zabezpieczenia wierzytelności” (Polska Federacja
+              Stowarzyszeń Rzeczoznawców Majątkowych). Jestem wpisany na listę
+              rzeczoznawców majątkowych rekomendowanych do wycen nieruchomości
+              dla sektora bankowego, publikowaną m.in. przez Związek Banków
+              Polskich.
+            </div>
+          </div>
+          <div className="w-full h-120">
+            <h2 className="text-4xl font-light text-center text-black">
+              Uprawnienia i certyfikaty
+            </h2>
+            <ul className="gap-1 mt-5">
+              {qualifications.map((item, index) => (
+                <li
+                  key={index}
+                  className="flex items-start  transition hover:translate-x-2 hover:text-[#2d2d2d] bg-[#D4B876] cursor-default my-1 hover:bg-white duration-300"
                 >
-                  <div className="h-[150px]">
-                    <h3 className="text-3xl font-semibold mb-3">{item.name}</h3>
-                    <h4 className="text-gray font-semibold text-2xl">
-                      {item.price}
-                    </h4>
-                    <p className="text-gray-700 text-2xl">{item.description}</p>
+                  <div className="font-normal text-xl leading-snug text-black p-2">
+                    {item}
                   </div>
-                  <div className="h-[300px] mt-10">
-                    <img src="/paralax.png" className="" alt="" />
-                  </div>
-                  <div className="h-[80px]">
-                    <button className="w-40px text-2xl bg-[#D2B48C] p-3 cursor-pointer shadow-md rounded-md transition-all duration-300 ease-in-out transform hover:scale-105 hover:-translate-y-0.5 hover:shadow-lg">
-                      Wybierz
-                    </button>
-                  </div>
-                </div>
+                </li>
               ))}
-            </div>
+            </ul>
+          </div>
+        </div>
+
+        <div className="w-1/2 relative overflow-hidden">
+          <motion.div
+            style={{ y: cityParallax }}
+            className="absolute inset-0 w-full h-screen"
+          >
+            <img
+              src="/city.jpg"
+              alt="City background"
+              className="w-full h-1/3 object-cover opacity-70 px-5 filter grayscale"
+              style={{
+                top: "40%",
+                position: "absolute",
+              }}
+            />
           </motion.div>
-        </motion.div>
-      </div>
-      <div className="relative h-[300vh] bg-black text-white z-10">
-        <motion.div
-          style={{ y: y1 }}
-          className="sticky top-0 h-screen flex justify-between px-10 bg-black border-t border-gray-300 overflow-hidden"
-        >
-          {/* <div className="text-6xl mt-20 font-bold z-10">Fueled by Passion</div> */}
 
-          {/* Kontener na nachodzące filmy - po lewej stronie */}
-          <div className="relative w-1/2 h-2/3 flex items-center justify-start pl-10">
-            {/* Pierwszy film - z tyłu - statyczny */}
-            <motion.div
-              className="absolute w-160 h-90 bg-gray-800 rounded-lg shadow-2xl z-10"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover rounded-lg grayscale"
-              >
-                <source src="/personal2.mp4" type="video/mp4" />
-              </video>
-            </motion.div>
-            <motion.div
-              className="absolute w-140 h-80 bg-gray-800 rounded-lg shadow-2xl z-20 translate-x-100 translate-y-70"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: -30 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover rounded-lg grayscale"
-              >
-                <source src="/personal1.mp4" type="video/mp4" />
-              </video>
-            </motion.div>
-            {Array.from({ length: 40 }, (_, i) => (
-              <motion.div
-                key={i}
-                className={`absolute rounded-full ${
-                  i % 3 === 0
-                    ? "bg-white"
-                    : i % 3 === 1
-                    ? "bg-gray-300"
-                    : "bg-gray-400"
-                } ${
-                  i % 4 === 0
-                    ? "w-1.5 h-1.5"
-                    : i % 4 === 1
-                    ? "w-1 h-1"
-                    : i % 4 === 2
-                    ? "w-0.5 h-0.5"
-                    : "w-2 h-2"
-                }`}
-                animate={{
-                  x: [0, (i % 2 === 0 ? 1 : -1) * (30 + i * 5), 0],
-                  y: [0, (i % 3 === 0 ? -1 : 1) * (20 + i * 3), 0],
-                  opacity: [0.2 + i * 0.03, 0.6 + i * 0.02, 0.2 + i * 0.03],
-                }}
-                transition={{
-                  duration: 3 + i * 0.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.3,
-                }}
-                style={{
-                  top: `${15 + ((i * 6) % 70)}%`,
-                  left: `${10 + ((i * 8) % 80)}%`,
-                  opacity: 0.2 + (i % 5) * 0.1,
-                }}
+          <div className="relative z-10 flex-col items-center py-3">
+            <div className="text-5xl font-light h-20 mt-10 items-center text-black text-center flex flex-col justify-center">
+              Dlaczego TOLEMA?
+            </div>
+
+            <div className="grid grid-cols-4 gap-0 p-10 mt-20">
+              {Array.from({ length: 16 }, (_, index) => {
+                const tileIndex = tilePositions.indexOf(index);
+                const isContentTile = tileIndex !== -1;
+
+                if (!isContentTile) {
+                  return <div key={index} className="p-4 min-h-30"></div>;
+                }
+
+                const tile = tiles[tileIndex];
+
+                return (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0.3, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    whileHover={{
+                      backgroundColor: "#ffffff",
+                      color: "#000000",
+                    }}
+                    transition={{
+                      duration: 0.4,
+                      delay: tile.delay,
+                      ease: [0.25, 0.46, 0.45, 0.94],
+                      backgroundColor: { duration: 0.3, delay: 0 },
+                      color: { duration: 0.3, delay: 0 },
+                    }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    className={`p-4 min-h-30 flex items-center justify-center text-center text-xl font-normal ${tile.bg}`}
+                  >
+                    {tile.text}
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            <div className="mt-50">
+              <SectionArrow
+                label="ROZWIĄZANIA DLA KLIENTA"
+                targetSection="rozwiazania"
+                color="black"
               />
-            ))}
-          </div>
-          <div className="w-180 mt-40 text-justify">
-            <h1 className="text-5xl pr-20">Treningi personalne</h1>
-            <div className="text-3xl mt-10 pr-20">
-              Indywidualne podejście. Szybsze efekty. Pełna motywacja.
-            </div>
-            <div className="text-2xl mt-10 pr-20 leading-8">
-              Nasi certyfikowani trenerzy personalni pomogą Ci osiągnąć
-              konkretny cel – niezależnie od poziomu zaawansowania. Opracujemy
-              plan treningowy, zadbamy o technikę i zmotywujemy Cię do
-              działania. Trening może dotyczyć redukcji, budowy masy mięśniowej,
-              poprawy kondycji lub powrotu do formy po kontuzji.
             </div>
           </div>
-        </motion.div>
+        </div>
+      </section>
 
-        <motion.div
-          style={{ y: y2 }}
-          className="sticky top-0 h-screen flex  justify-between px-10 bg-black border-t border-gray-300"
-        >
-          <div className="relative w-1/2 h-2/3 flex items-center justify-start pl-10">
-            {/* Pierwszy film - z tyłu - statyczny */}
-            <motion.div
-              className="absolute w-160 h-90 bg-gray-800 rounded-lg shadow-2xl z-10"
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover rounded-lg grayscale"
-              >
-                <source src="/groups1.mp4" type="video/mp4" />
-              </video>
-            </motion.div>
-            <motion.div
-              className="absolute w-140 h-80 bg-gray-800 rounded-lg shadow-2xl z-20 translate-x-100 translate-y-70"
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: -30 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
-            >
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-cover rounded-lg grayscale"
-              >
-                <source src="/groups3.mp4" type="video/mp4" />
-              </video>
-            </motion.div>
-            {Array.from({ length: 40 }, (_, i) => (
-              <motion.div
-                key={i}
-                className={`absolute rounded-full ${
-                  i % 3 === 0
-                    ? "bg-white"
-                    : i % 3 === 1
-                    ? "bg-gray-300"
-                    : "bg-gray-400"
-                } ${
-                  i % 4 === 0
-                    ? "w-1.5 h-1.5"
-                    : i % 4 === 1
-                    ? "w-1 h-1"
-                    : i % 4 === 2
-                    ? "w-0.5 h-0.5"
-                    : "w-2 h-2"
-                }`}
-                animate={{
-                  x: [0, (i % 2 === 0 ? 1 : -1) * (30 + i * 5), 0],
-                  y: [0, (i % 3 === 0 ? -1 : 1) * (20 + i * 3), 0],
-                  opacity: [0.2 + i * 0.03, 0.6 + i * 0.02, 0.2 + i * 0.03],
-                }}
-                transition={{
-                  duration: 3 + i * 0.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: 0.3,
-                }}
-                style={{
-                  top: `${15 + ((i * 6) % 70)}%`,
-                  left: `${10 + ((i * 8) % 80)}%`,
-                  opacity: 0.2 + (i % 5) * 0.1,
-                }}
-              />
-            ))}
-          </div>
-          <div className="w-180 mt-40 text-justify">
-            <h1 className="text-5xl pr-20">Zajęcia grupowe fitness</h1>
-            <div className="text-3xl mt-10 pr-20">
-              Trenuj w rytmie dobrej energii. Razem raźniej!
-            </div>
-            <div className="text-2xl mt-10 pr-20 leading-8">
-              Nasze zajęcia grupowe to świetny sposób na spalanie kalorii,
-              poprawę formy i dobrą zabawę. Znajdziesz tu różnorodne treningi:
-              od cardio i wzmacniania, przez zdrowy kręgosłup i stretching, aż
-              po intensywny cross training. Zajęcia prowadzą doświadczeni
-              instruktorzy, a atmosfera motywuje do działania.
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          style={{ y: y3 }}
-          className="sticky top-0 h-screen flex justify-between px-10 bg-black border-t border-gray-300"
-        >
-          <div className="text-6xl mt-20 font-bold">
-            Improve by 1% Every Day
-          </div>
-        </motion.div>
-      </div>
+      <section
+        className="relative h-[300vh] bg-black text-white z-10"
+        id="rozwiazania"
+      >
+        <Property y={y1} />
+        <TechnicalMeasures y={y2} />
+        <Business y={y3} />
+      </section>
       <Footer />
     </div>
   );

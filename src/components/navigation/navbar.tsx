@@ -1,47 +1,51 @@
-import { useState, useEffect } from 'react'
-import { motion, useScroll, useTransform } from "framer-motion"
-import { Link } from 'react-router-dom'
+import { useState, useEffect } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isShrunk, setIsShrunk] = useState(false)
-  
-  const { scrollY } = useScroll()
-  
+  const [isOpen, setIsOpen] = useState(false);
+  const [isShrunk, setIsShrunk] = useState(false);
+
+  const { scrollY } = useScroll();
+
   const navTextColor = useTransform(
     scrollY,
-    [1000, 1100, 2600, 3300], 
-    ["#ffffff", "#000000", "#000000", "#ffffff"] 
-  )
+    [1000, 1050, 2100, 2150, 4250, 4300],
+    ["#ffffff", "#000000", "#000000", "#ffffff", "#ffffff", "#000000"]
+  );
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsShrunk(window.scrollY > 10)
-    }
+      setIsShrunk(window.scrollY > 10);
+    };
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { to: "/auth", label: "O nas" },
+    { to: "/offer", label: "Oferta" },
+    { to: "/contact", label: "Kontakt" },
+  ];
 
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-50 transition-none ${
-        isShrunk ? 'py-4' : 'py-4'
+        isShrunk ? "py-2" : "py-2"
       } px-6 flex items-center justify-between
         ${
           isOpen
-            ? 'backdrop-blur-sm bg-white/50'
-            : 'bg-transparent'
+            ? "backdrop-blur-sm bg-white/50"
+            : "backdrop-blur-sm bg-white/10"
         }`}
     >
       <Link to="/">
         <motion.div
           style={{ color: navTextColor }}
-          className={`font-bold transition-none ${
-            isShrunk ? 'text-2xl' : 'text-2xl'
-          }`}
+          className="font-bold transition-none text-3xl"
         >
-          Workout Tracker
+          TOLEMA wyceny
         </motion.div>
       </Link>
 
@@ -76,56 +80,26 @@ export default function Navbar() {
       </div>
 
       <ul
-        className={`flex flex-col md:flex-row md:items-center absolute md:static top-full left-0 w-full md:w-auto transition-all duration-300 ease-in ${
-          isOpen ? 'block backdrop-blur-sm bg-white/50' : 'hidden md:flex'
+        className={`flex flex-col md:flex-row md:items-center absolute md:static top-full left-0 w-full text-2xl md:w-auto transition-all duration-300 ease-in ${
+          isOpen ? "block backdrop-blur-sm bg-white/50" : "hidden md:flex"
         }`}
       >
-        <motion.li 
-          style={{ color: isOpen ? "#000000" : navTextColor }}
-          className="py-2 px-4 hover:text-black cursor-pointer relative group"
-        >
-          <Link to="/auth" className="block">
-            Logowanie / Rejestracja
-            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
-          </Link>
-        </motion.li>
-        <motion.li 
-          style={{ color: isOpen ? "#000000" : navTextColor }}
-          className="py-2 px-4 hover:text-black cursor-pointer relative group"
-        >
-          <Link to="/offer" className="block">
-            Oferta
-            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
-          </Link>
-        </motion.li>
-        <motion.li 
-          style={{ color: isOpen ? "#000000" : navTextColor }}
-          className="py-2 px-4 hover:text-black cursor-pointer relative group"
-        >
-          <Link to="/trainers" className="block">
-            Trenerzy
-            <div className="absolute bottom-0 left-4 right-4 h-[2px] bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
-          </Link>
-        </motion.li>
-        <motion.li 
-          style={{ color: isOpen ? "#000000" : navTextColor }}
-          className="py-2 px-4 hover:text-black cursor-pointer relative group"
-        >
-          <Link to="/booking" className="block">
-            Zapisz się na trening
-            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
-          </Link>
-        </motion.li>
-        <motion.li 
-          style={{ color: isOpen ? "#000000" : navTextColor }}
-          className="py-2 px-4 hover:text-black cursor-pointer relative group"
-        >
-          <Link to="/contact" className="block">
-            Kontakt
-            <div className="absolute bottom-0 left-4 right-4 h-0.5 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></div>
-          </Link>
-        </motion.li>
+        {navLinks.map(({ to, label }) => (
+          <motion.li
+            key={to}
+            style={{ color: isOpen ? "#000000" : navTextColor }}
+            className="py-2 px-4 hover:text-black cursor-pointer relative group"
+          >
+            <Link to={to} className="block">
+              {label}
+              <motion.div
+                style={{ backgroundColor: isOpen ? "#000000" : navTextColor }}
+                className="absolute bottom-0 left-4 right-4 h-0.5 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"
+              />
+            </Link>
+          </motion.li>
+        ))}
       </ul>
     </nav>
-  )
+  );
 }
