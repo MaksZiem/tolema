@@ -60,6 +60,7 @@ function Home() {
 
   const tilePositions = [1, 3, 4, 6, 9, 11, 12, 14];
 
+
   return (
     <div className="font-sans relative z-0">
       <Navbar />
