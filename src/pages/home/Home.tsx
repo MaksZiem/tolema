@@ -14,7 +14,7 @@ function Home() {
   const y2 = useTransform(scrollY, [1500, 2000], [0, 0]);
   const y3 = useTransform(scrollY, [2000, 2500], [0, 0]);
 
-  // Parallax effect for city background - subtle movemen
+  // Parallax effect for city  - subtle movemen
   const cityParallax = useTransform(scrollY, [0, 2000], [0, -200]);
 
   const qualifications = [
