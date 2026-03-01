@@ -11,7 +11,7 @@ const SectionArrow = ({ label = "SCROLL", targetSection, color = "white" }: { la
         });
       }
     } else {
-      // Fallback - scroll to next viewport hei
+      // Fallback - scroll to next viewport height
       window.scrollTo({
         top: window.innerHeight,
         behavior: "smooth",
